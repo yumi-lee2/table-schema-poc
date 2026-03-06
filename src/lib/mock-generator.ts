@@ -50,10 +50,10 @@ function generateValue(col: ColumnDef, index: number): unknown {
 }
 
 export function generateMockData(columns: ColumnDef[], rowCount = 20): Record<string, unknown>[] {
-  const visibleCols = columns.filter((c) => c.visible).sort((a, b) => a.sequence - b.sequence);
+  const sortedCols = [...columns].sort((a, b) => a.sequence - b.sequence);
   return Array.from({ length: rowCount }, (_, i) => {
     const row: Record<string, unknown> = { key: String(i) };
-    for (const col of visibleCols) {
+    for (const col of sortedCols) {
       row[col.key] = generateValue(col, i);
     }
     return row;
